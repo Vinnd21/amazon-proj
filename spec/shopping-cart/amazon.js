@@ -119,7 +119,10 @@ function renderCart() {
                             </label>
                         </div>
                     </div>`;
-})}};
+})} else {
+        console.log('Your cart is empty.');
+    }
+};
     
 addCartButtons.forEach((button, index) => {
     button.addEventListener('click', () => {
