@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script defer src="amazon.js"></script>
+    <script defer src="/spec/shopping-cart/amazon.js"></script>
     <title>Amazon Clone</title>
 </head>
 <body style="margin: 0; font-family: Arial, sans-serif; background-color: #eaeded;">
@@ -14,68 +14,78 @@
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
             <div style="background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
                 <div style="height: 250px; display: flex; align-items: center; justify-content: center; background-color: #f7f7f7; border-radius: 4px; margin-bottom: 15px;">
-                    <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&h=300&fit=crop" alt="Wireless Headphones" style="max-width: 100%; max-height: 100%; object-fit: contain;">
+                    <img class="img" src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&h=300&fit=crop" alt="Wireless Headphones" style="max-width: 100%; max-height: 100%; object-fit: contain;">
                 </div>
-                <h3 style="font-size: 16px; margin: 10px 0; color: #0066c0;">Premium Wireless Headphones</h3>
+                <h3 class="name" style="font-size: 16px; margin: 10px 0; color: #0066c0;">Premium Wireless Headphones</h3>
                 <div style="display: flex; align-items: center; gap: 5px; margin: 10px 0;">
                     <span style="color: #ff9900;">★★★★☆</span>
                     <span style="font-size: 14px; color: #007185;">4.5 (2,345)</span>
                 </div>
-                <div style="font-size: 24px; color: #b12704; font-weight: bold;">$79.99</div>
-                <div style="font-size: 14px; color: #565959; text-decoration: line-through;">$129.99</div>
+                <div class="price" style="font-size: 24px; color: #b12704; font-weight: bold;">$79.99</div>
                 <div style="font-size: 12px; color: #007600; margin-top: 5px;">FREE delivery Tomorrow</div>
+                <button class="addCart" style="width: 100%; padding: 10px 0; background-color: #ffd814; color: #111; border: none; border-radius: 4px; font-size: 16px; font-weight: bold; cursor: pointer; margin-bottom: 10px; transition: background 0.2s;" onmouseover="this.style.backgroundColor='#f7ca00'" onmouseout="this.style.backgroundColor='#ffd814'">
+                    Add to Cart
+                </button>
             </div>
             <div style="background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
                 <div style="height: 250px; display: flex; align-items: center; justify-content: center; background-color: #f7f7f7; border-radius: 4px; margin-bottom: 15px;">
-                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300&h=300&fit=crop" alt="Smart Watch" style="max-width: 100%; max-height: 100%; object-fit: contain;">
+                    <img class="img" src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300&h=300&fit=crop" alt="Smart Watch" style="max-width: 100%; max-height: 100%; object-fit: contain;">
                 </div>
-                <h3 style="font-size: 16px; margin: 10px 0; color: #0066c0;">Smart Watch with Fitness Tracker</h3>
+                <h3 class="name" style="font-size: 16px; margin: 10px 0; color: #0066c0;">Smart Watch Fitness Tracker</h3>
                 <div style="display: flex; align-items: center; gap: 5px; margin: 10px 0;">
                     <span style="color: #ff9900;">★★★★★</span>
                     <span style="font-size: 14px; color: #007185;">4.8 (5,672)</span>
                 </div>
-                <div style="font-size: 24px; color: #b12704; font-weight: bold;">$149.99</div>
-                <div style="font-size: 14px; color: #565959; text-decoration: line-through;">$249.99</div>
+                <div class="price" style="font-size: 24px; color: #b12704; font-weight: bold;">$149.99</div>
                 <div style="font-size: 12px; color: #007600; margin-top: 5px;">Get it by Tomorrow</div>
+                <button  style="width: 100%; padding: 10px 0; background-color: #ffd814; color: #111; border: none; border-radius: 4px; font-size: 16px; font-weight: bold; cursor: pointer; margin-bottom: 10px; transition: background 0.2s;" onmouseover="this.style.backgroundColor='#f7ca00'" onmouseout="this.style.backgroundColor='#ffd814'">
+                    Add to Cart
+                </button>
             </div>
             <div style="background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
                 <div style="height: 250px; display: flex; align-items: center; justify-content: center; background-color: #f7f7f7; border-radius: 4px; margin-bottom: 15px;">
-                    <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=300&h=300&fit=crop" alt="Sunglasses" style="max-width: 100%; max-height: 100%; object-fit: contain;">
+                    <img class="img" src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=300&h=300&fit=crop" alt="Sunglasses" style="max-width: 100%; max-height: 100%; object-fit: contain;">
                 </div>
-                <h3 style="font-size: 16px; margin: 10px 0; color: #0066c0;">Polarized Designer Sunglasses</h3>
+                <h3 class="name" style="font-size: 16px; margin: 10px 0; color: #0066c0;">Polarized Designer Sunglasses</h3>
                 <div style="display: flex; align-items: center; gap: 5px; margin: 10px 0;">
                     <span style="color: #ff9900;">★★★★☆</span>
                     <span style="font-size: 14px; color: #007185;">4.3 (1,289)</span>
                 </div>
-                <div style="font-size: 24px; color: #b12704; font-weight: bold;">$34.99</div>
-                <div style="font-size: 14px; color: #565959; text-decoration: line-through;">$89.99</div>
+                <div class="price" style="font-size: 24px; color: #b12704; font-weight: bold;">$34.99</div>
                 <div style="font-size: 12px; color: #007600; margin-top: 5px;">Prime FREE delivery</div>
+                <button class="addCart" style="width: 100%; padding: 10px 0; background-color: #ffd814; color: #111; border: none; border-radius: 4px; font-size: 16px; font-weight: bold; cursor: pointer; margin-bottom: 10px; transition: background 0.2s;" onmouseover="this.style.backgroundColor='#f7ca00'" onmouseout="this.style.backgroundColor='#ffd814'">
+                    Add to Cart
+                </button>
             </div>
             <div style="background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
                 <div style="height: 250px; display: flex; align-items: center; justify-content: center; background-color: #f7f7f7; border-radius: 4px; margin-bottom: 15px;">
-                    <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=300&h=300&fit=crop" alt="Sneakers" style="max-width: 100%; max-height: 100%; object-fit: contain;">
+                    <img class="img" src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=300&h=300&fit=crop" alt="Sneakers" style="max-width: 100%; max-height: 100%; object-fit: contain;">
                 </div>
-                <h3 style="font-size: 16px; margin: 10px 0; color: #0066c0;">Athletic Running Shoes - Men's</h3>
+                <h3 class="name" style="font-size: 16px; margin: 10px 0; color: #0066c0;">Athletic Running Shoes - Men's</h3>
                 <div style="display: flex; align-items: center; gap: 5px; margin: 10px 0;">
                     <span style="color: #ff9900;">★★★★★</span>
                     <span style="font-size: 14px; color: #007185;">4.7 (8,934)</span>
                 </div>
-                <div style="font-size: 24px; color: #b12704; font-weight: bold;">$59.99</div>
-                <div style="font-size: 14px; color: #565959; text-decoration: line-through;">$119.99</div>
+                <div class="price" style="font-size: 24px; color: #b12704; font-weight: bold;">$59.99</div>
                 <div style="font-size: 12px; color: #007600; margin-top: 5px;">FREE Returns</div>
+                <button class="addCart" style="width: 100%; padding: 10px 0; background-color: #ffd814; color: #111; border: none; border-radius: 4px; font-size: 16px; font-weight: bold; cursor: pointer; margin-bottom: 10px; transition: background 0.2s;" onmouseover="this.style.backgroundColor='#f7ca00'" onmouseout="this.style.backgroundColor='#ffd814'">
+                    Add to Cart
+                </button>
             </div>
             <div style="background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
                 <div style="height: 250px; display: flex; align-items: center; justify-content: center; background-color: #f7f7f7; border-radius: 4px; margin-bottom: 15px;">
-                    <img src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=300&h=300&fit=crop" alt="Backpack" style="max-width: 100%; max-height: 100%; object-fit: contain;">
+                    <img class="img" src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=300&h=300&fit=crop" alt="Backpack" style="max-width: 100%; max-height: 100%; object-fit: contain;">
                 </div>
-                <h3 style="font-size: 16px; margin: 10px 0; color: #0066c0;">Laptop Backpack with USB Port</h3>
+                <h3 class="name" style="font-size: 16px; margin: 10px 0; color: #0066c0;">Laptop Backpack with USB Port</h3>
                 <div style="display: flex; align-items: center; gap: 5px; margin: 10px 0;">
                     <span style="color: #ff9900;">★★★★☆</span>
                     <span style="font-size: 14px; color: #007185;">4.6 (3,456)</span>
                 </div>
-                <div style="font-size: 24px; color: #b12704; font-weight: bold;">$39.99</div>
-                <div style="font-size: 14px; color: #565959; text-decoration: line-through;">$79.99</div>
+                <div class="price" style="font-size: 24px; color: #b12704; font-weight: bold;">$39.99</div>
                 <div style="font-size: 12px; color: #007600; margin-top: 5px;">Limited time deal</div>
+                <button class="addCart" style="width: 100%; padding: 10px 0; background-color: #ffd814; color: #111; border: none; border-radius: 4px; font-size: 16px; font-weight: bold; cursor: pointer; margin-bottom: 10px; transition: background 0.2s;" onmouseover="this.style.backgroundColor='#f7ca00'" onmouseout="this.style.backgroundColor='#ffd814'">
+                    Add to Cart
+                </button>
             </div>
             
         </div>

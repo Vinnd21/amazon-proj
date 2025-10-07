@@ -1,0 +1,23 @@
+{
+  "name": "amazon-project",
+  "version": "1.0.0",
+  "description": "Aplication description",
+  "type": "module",
+  "main": "amazon.js",
+  "devDependencies": {
+    "jasmine": "^5.12.0"
+  },
+  "scripts": {
+    "test": "jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vinnd21/amazon-proj.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Vinnd21/amazon-proj/issues"
+  },
+  "homepage": "https://github.com/Vinnd21/amazon-proj#readme"
+}
