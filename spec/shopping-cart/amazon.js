@@ -1,8 +1,7 @@
-const ItemName = document.querySelectorAll('.name');
-const ItemImg = document.querySelectorAll('.img');
-const ItemPrice = document.querySelectorAll('.price');
-const addCartButtons = document.querySelectorAll('.addCart');
-const deleteLink = document.querySelector('.delete')
+
+
+const numCart = document.querySelector('numItems')
+
 
 function renderHeader() {
     const header = document.createElement('header');
@@ -35,7 +34,7 @@ function renderHeader() {
                     <div style="font-size: 12px;">Returns</div>
                     <div style="font-weight: bold; font-size: 14px;">& Orders</div>
                 </div>
-                <a href="/check.html" style="cursor: pointer; display: flex; align-items: center; position: relative; text-decoration: none; color: inherit;">
+                <a class="numItens" href="/check.html" style="cursor: pointer; display: flex; align-items: center; position: relative; text-decoration: none; color: inherit;">
                     <span style="font-size: 24px;">🛒</span>
                     <span style="font-weight: bold; margin-left: 5px;">Cart</span>
                     <span style="
@@ -60,7 +59,9 @@ function renderHeader() {
 renderHeader();
 
 function onclickItem(button, index){
-    // Try to get product info from the parallel NodeLists first
+    const ItemName = document.querySelectorAll('.name');
+    const ItemImg = document.querySelectorAll('.img');
+    const ItemPrice = document.querySelectorAll('.price');
     let iname, imgSrc, price;
     if (ItemName[index] && ItemImg[index] && ItemPrice[index]) {
         iname = ItemName[index].innerText;
@@ -73,80 +74,3 @@ function onclickItem(button, index){
     localStorage.setItem('cart', JSON.stringify(savedCart));
     console.log(`${iname} has been added to your cart.`);
 }
-function renderCart() {
-    const cart = localStorage.getItem('cart');
-    const cartItems = cart ? JSON.parse(cart) : [];
-    const rCart = cartItems.map(item => `
-        <h3 style="color: #007600; font-size: 18px; margin-top: 0; margin-bottom: 20px;">Delivery date: Friday, September 19</h3>  
-            <div style="display: grid; grid-template-columns: 150px 1fr 1fr; gap: 20px; align-items: start;">
-                <div>
-                    <img src=${item.imgSrc} alt="Athletic Socks" style="width: 100%; border-radius: 4px;">
-                </div>
-                <div>
-                    <h4 style="font-size: 16px; margin: 0 0 10px 0; font-weight: bold;">${item.iname}</h4>
-                    <p style="color: #b12704; font-size: 18px; font-weight: bold; margin: 5px 0;">${item.price}</p>
-                    <p style="font-size: 14px; margin: 5px 0;">Quantity: ${0} 
-                        <button style="color: #007185; text-decoration: none; margin-left: 10px;">Update</button>
-                        <button data-id="${item.iname}" class="delete" style="color: #007185; text-decoration: none; margin-left: 10px;">Delete</button>
-                    </p>
-                </div>
-                <div>
-                    <p style="font-weight: bold; margin: 0 0 15px 0;">Choose a delivery option:</p>
-                        <label style="display: flex; align-items: start; gap: 10px; margin-bottom: 15px; cursor: pointer;">
-                            <input type="radio" name="delivery1" checked style="margin-top: 3px;">
-                            <div>
-                                <div style="color: #007600; font-weight: bold;">Friday, September 19</div>
-                                <div style="color: #888; font-size: 14px;">FREE Shipping</div>
-                            </div>
-                        </label>
-                            
-                        <label style="display: flex; align-items: start; gap: 10px; margin-bottom: 15px; cursor: pointer;">
-                            <input type="radio" name="delivery1" style="margin-top: 3px;">
-                            <div>
-                                <div style="color: #007600; font-weight: bold;">Monday, September 15</div>
-                                <div style="color: #888; font-size: 14px;">$4.99 - Shipping</div>
-                            </div>
-                        </label>
-                            
-                        <label style="display: flex; align-items: start; gap: 10px; cursor: pointer;">
-                            <input type="radio" name="delivery1" style="margin-top: 3px;">
-                            <div>
-                                <div style="color: #007600; font-weight: bold;">Thursday, September 11</div>
-                                <div style="color: #888; font-size: 14px;">$9.99 - Shipping</div>S
-                            </div>
-                        </label>
-                </div>
-            </div>`).join('');
-    const cartContainer = document.getElementById('cartContainer');
-    if (!cartContainer) return; // nothing to render into on this page
-    if (cartItems.length > 0) {
-        cartContainer.innerHTML = rCart;
-        const deleteButtons = document.querySelectorAll(".delete");
-        Array.from(deleteButtons).forEach((button) => {
-            button.addEventListener("click", function() {
-                const cart = localStorage.getItem('cart');
-                const cartItems = cart ? JSON.parse(cart) : [];
-                const n = this.getAttribute('data-id');
-                const newItems = cartItems.filter((item) => item.iname !== n );
-                localStorage.setItem('cart', JSON.stringify(newItems));
-                renderCart();
-            })
-        })
-    } else {
-        cartContainer.innerHTML = '<p>Your cart is empty.</p>';
-
-    }};
-
-
-addCartButtons.forEach((button, index) => {
-    button.addEventListener('click', () => {
-        onclickItem(button, index);
-        // Only try rendering if the checkout container exists on this page
-        if (document.getElementById('cartContainer')) renderCart();
-    });
-});
-
-// If this page has a cart container (e.g. check.html), render any saved items on load
-if (document.getElementById('cartContainer')) {
-    renderCart();
-};
