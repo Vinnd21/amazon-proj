@@ -58,19 +58,4 @@ function renderHeader() {
 } 
 renderHeader();
 
-function onclickItem(button, index){
-    const ItemName = document.querySelectorAll('.name');
-    const ItemImg = document.querySelectorAll('.img');
-    const ItemPrice = document.querySelectorAll('.price');
-    let iname, imgSrc, price;
-    if (ItemName[index] && ItemImg[index] && ItemPrice[index]) {
-        iname = ItemName[index].innerText;
-        imgSrc = ItemImg[index].src;
-        price = ItemPrice[index].innerText;
-    } 
-    const cartItem = { iname, imgSrc, price };
-    const savedCart = JSON.parse(localStorage.getItem('cart')) || [];
-    savedCart.push(cartItem);
-    localStorage.setItem('cart', JSON.stringify(savedCart));
-    console.log(`${iname} has been added to your cart.`);
-}
+
