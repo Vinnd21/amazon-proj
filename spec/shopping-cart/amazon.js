@@ -1,7 +1,6 @@
-
+import { attachAddCartButtons } from './item.js';
 
 const numCart = document.querySelector('numItems')
-
 
 function renderHeader() {
     const header = document.createElement('header');
@@ -57,5 +56,9 @@ function renderHeader() {
     document.body.prepend(header);
 } 
 renderHeader();
+
+window.addEventListener('DOMContentLoaded', () => {
+    if (typeof attachAddCartButtons === 'function') attachAddCartButtons();
+});
 
 

@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script defer src="/spec/shopping-cart/amazon.js"></script>
-  <script defer src="/spec/shopping-cart/item.js"></script>
+  <script type="module" defer src="/spec/shopping-cart/amazon.js"></script>
   <link rel="stylesheet" href="/check.css">
   <title>Amazon Checkout</title>
 </head>
@@ -24,41 +23,9 @@
         <div id="cartContainer" class="cart-container"></div>
       </div>
 
-      <div>
-        <div class="order-summary">
-          <h2 class="order-summary-title">Order Summary</h2>
-
-          <div class="summary-section">
-            <div class="summary-row">
-              <span class="summary-label">Items (3):</span>
-              <span class="summary-value">$42.75</span>
-            </div>
-            <div class="summary-row">
-              <span class="summary-label">Shipping & handling:</span>
-              <span class="summary-value">$4.99</span>
-            </div>
-          </div>
-
-          <div class="summary-section">
-            <div class="summary-row">
-              <span class="summary-label">Total before tax:</span>
-              <span class="summary-value">$47.74</span>
-            </div>
-            <div class="summary-row">
-              <span class="summary-label">Estimated tax (10%):</span>
-              <span class="summary-value">$4.77</span>
-            </div>
-          </div>
-
-          <div class="order-total-section">
-            <div class="order-total-row">
-              <span class="order-total-label">Order total:</span>
-              <span class="order-total-value">$52.51</span>
-            </div>
-          </div>
-
-          <button class="place-order-btn">Place your order</button>
-        </div>
+      <div class="order-summary-container">
+        
+      </div>
       </div>
     </div>
   </div>

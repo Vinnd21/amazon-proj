@@ -1,5 +1,5 @@
 
-class Item {
+export class Item {
     constructor(img, name, price, quantity = 1) {
         this.img = img;
         this.name = name.trim();
@@ -51,18 +51,27 @@ class Item {
 }
 
 
-function renderCart() {
-    const cart = localStorage.getItem('cart');
-    const cartItems = cart ? JSON.parse(cart) : [];
-    const rCart = cartItems.map(item => `
-        <h3 style="color: #007600; font-size: 18px; margin-top: 0; margin-bottom: 20px;">Delivery date: Friday, September 19</h3>  
+export function renderCart() {
+    const cartContainer = document.getElementById('cartContainer');
+    if (!cartContainer) return;
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cartContainer.innerHTML = '';
+    if (cart.length === 0) {
+        cartContainer.innerHTML = '<p>Your cart is empty.</p>';
+        return;
+    }
+    cart.forEach((item, index ) => {
+        const itemDiv = document.createElement('div');
+        itemDiv.classList.add('cart-item');
+        itemDiv.innerHTML = `
+          <h3 style="color: #007600; font-size: 18px; margin-top: 0; margin-bottom: 20px;">Delivery date: Friday, September 19</h3>  
             <div style="display: grid; grid-template-columns: 150px 1fr 1fr; gap: 20px; align-items: start;">
                 <div>
                     <img src=${item.img} alt="Athletic Socks" style="width: 100%; border-radius: 4px;">
                 </div>
                 <div>
                     <h4 style="font-size: 16px; margin: 0 0 10px 0; font-weight: bold;">${item.name}</h4>
-                    <p style="color: #b12704; font-size: 18px; font-weight: bold; margin: 5px 0;">${item.price}</p>
+                    <p class="qty-input" style="color: #b12704; font-size: 18px; font-weight: bold; margin: 5px 0;">${(item.price * item.quantity).toFixed(2)}</p>
                     <p style="font-size: 14px; margin: 5px 0;">${item.quantity}: 
                         <button style="color: #007185; text-decoration: none; margin-left: 10px;">Update</button>
                         <button data-id="${item.name}" class="delete" style="color: #007185; text-decoration: none; margin-left: 10px;">Delete</button>
@@ -94,41 +103,52 @@ function renderCart() {
                             </div>
                         </label>
                 </div>
-            </div>`).join('');
-    const cartContainer = document.getElementById('cartContainer');
-    if (!cartContainer) return; 
-    if (cartItems.length > 0) {
-        cartContainer.innerHTML = rCart;
-        const deleteButtons = document.querySelectorAll(".delete");
-        Array.from(deleteButtons).forEach((button) => {
-            button.addEventListener("click", function() {
-                const cart = localStorage.getItem('cart');
-                const cartItems = cart ? JSON.parse(cart) : [];
-                const n = this.getAttribute('data-id');
-                const newItems = cartItems.filter((item) => item.name !== n );
-                localStorage.setItem('cart', JSON.stringify(newItems));
-                renderCart();
-            })
-        })
-    } else {
-        cartContainer.innerHTML = '<p>Your cart is empty.</p>';
-
-    }
-};
-
-const addCartButtons = document.querySelectorAll('.add-cart-btn');
-const buttonAction = addCartButtons.forEach((button, index) => {
-    button.addEventListener('click', () => {
-        const img = document.querySelectorAll('.product-image')[index].src;
-        const name = document.querySelectorAll('.product-name')[index].innerText.trim();
-        const pricetext = document.querySelectorAll('.product-price')[index].innerText.trim();
-        const price = pricetext.replace(/[^0-9.]/g, '').trim();
-        const item = new Item(img, name, price, 1);
-        item.addToCart();
-        if (document.getElementById('cartContainer')) renderCart();
-        console.log(`${item.name} added to cart!`);
+            </div>`;
+        cartContainer.appendChild(itemDiv);
     });
-});
+    document.querySelectorAll(".qty-input").forEach((input) => {
+    input.addEventListener("change", (e) => {
+      const index = e.target.dataset.index;
+      const newQuantity = parseInt(e.target.value);
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      if (cart[index]) {
+        cart[index].quantity = newQuantity;
+        localStorage.setItem("cart", JSON.stringify(cart));
+        renderCart(); 
+      }
+    });
+  });
+
+  document.querySelectorAll(".delete").forEach((button) => {
+    button.addEventListener("click", (e) => {
+      const index = e.target.dataset.index;
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.splice(index, 1);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      renderCart(); 
+    });
+  });
+
+}
+
+
+
+
+export function attachAddCartButtons() {
+    const addCartButtons = document.querySelectorAll('.add-cart-btn');
+    addCartButtons.forEach((button, index) => {
+        button.addEventListener('click', () => {
+            const img = document.querySelectorAll('.product-image')[index] && document.querySelectorAll('.product-image')[index].src;
+            const name = document.querySelectorAll('.product-name')[index] && document.querySelectorAll('.product-name')[index].innerText.trim();
+            const pricetext = document.querySelectorAll('.product-price')[index] && document.querySelectorAll('.product-price')[index].innerText.trim();
+            const price = pricetext ? pricetext.replace(/[^0-9.]/g, '').trim() : '0';
+            const item = new Item(img, name, price, 1);
+            item.addToCart();
+            if (document.getElementById('cartContainer')) renderCart();
+            console.log(`${item.name} added to cart!`);
+        });
+    });
+}
 
 window.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('cartContainer')) {
