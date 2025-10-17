@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script type="module" defer src="/spec/shopping-cart/amazon.js"></script>
-  <link rel="stylesheet" href="/check.css">
+  <script type="module" defer src="/src/amazon.js"></script>
+  <link rel="stylesheet" href="CSS/check.css">
   <title>Amazon Checkout</title>
 </head>
 <body>
@@ -13,7 +13,7 @@
       <div class="header-left">
         <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon" class="amazon-logo">
       </div>
-      <h1 class="checkout-title">Checkout <span class="NumItems"></span></h1>
+      <h1 id="NumItems" class="checkout-title">Checkout </h1>
       <div class="lock-icon">🔒</div>
     </div>
 
@@ -23,9 +23,8 @@
         <div id="cartContainer" class="cart-container"></div>
       </div>
 
-      <div class="order-summary-container">
+      <div id="order-summary-container">
         
-      </div>
       </div>
     </div>
   </div>

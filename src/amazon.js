@@ -1,6 +1,5 @@
-import { attachAddCartButtons } from './item.js';
-
-const numCart = document.querySelector('numItems')
+import { attachAddCartButtons, renderCart } from './item.js';
+import { renderSummary, renderItemQuantity } from './shopping-cart.js';
 
 function renderHeader() {
     const header = document.createElement('header');
@@ -36,7 +35,7 @@ function renderHeader() {
                 <a class="numItens" href="/check.html" style="cursor: pointer; display: flex; align-items: center; position: relative; text-decoration: none; color: inherit;">
                     <span style="font-size: 24px;">🛒</span>
                     <span style="font-weight: bold; margin-left: 5px;">Cart</span>
-                    <span style="
+                    <span id="NumItemsBadge" style="
                         position: absolute;
                         top: -8px;
                         right: -12px;
@@ -59,6 +58,11 @@ renderHeader();
 
 window.addEventListener('DOMContentLoaded', () => {
     if (typeof attachAddCartButtons === 'function') attachAddCartButtons();
+    if (document.getElementById('cartContainer')) {
+        renderCart();
+    }
+    if (document.getElementById('order-summary-container')) {
+        renderSummary();
+    }
+    if (typeof renderItemQuantity === 'function') renderItemQuantity();
 });
-
-

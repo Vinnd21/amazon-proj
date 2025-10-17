@@ -1,4 +1,4 @@
-
+import { renderSummary, renderItemQuantity } from './shopping-cart.js';
 export class Item {
     constructor(img, name, price, quantity = 1) {
         this.img = img;
@@ -31,12 +31,15 @@ export class Item {
             });
         }
         this.setLocalCart(cart);
+        // update quantity displays
+        if (typeof renderItemQuantity === 'function') renderItemQuantity();
     }
 
     removeFromCart() {
         let cart = this.parseCart();
         cart = cart.filter(item => item.name !== this.name);
         this.setLocalCart(cart);
+        if (typeof renderItemQuantity === 'function') renderItemQuantity();
     }
 
     updateQuantity(newQuantity) {
@@ -46,6 +49,7 @@ export class Item {
         if (itemIndex > -1) {
             cart[itemIndex].quantity = newQuantity;
             this.setLocalCart(cart);
+            if (typeof renderItemQuantity === 'function') renderItemQuantity();
         }
     }
 }
@@ -71,10 +75,10 @@ export function renderCart() {
                 </div>
                 <div>
                     <h4 style="font-size: 16px; margin: 0 0 10px 0; font-weight: bold;">${item.name}</h4>
-                    <p class="qty-input" style="color: #b12704; font-size: 18px; font-weight: bold; margin: 5px 0;">${(item.price * item.quantity).toFixed(2)}</p>
-                    <p style="font-size: 14px; margin: 5px 0;">${item.quantity}: 
-                        <button style="color: #007185; text-decoration: none; margin-left: 10px;">Update</button>
-                        <button data-id="${item.name}" class="delete" style="color: #007185; text-decoration: none; margin-left: 10px;">Delete</button>
+                    <p style="color: #b12704; font-size: 18px; font-weight: bold; margin: 5px 0;">$${(item.price * item.quantity).toFixed(2)}</p>
+                    <p style="font-size: 14px; margin: 5px 0;">Qty: <span class="item-qty">${item.quantity}</span>
+                        <button data-name="${item.name}" class="update-qty" style="color: #007185; text-decoration: none; margin-left: 10px;">Update</button>
+                        <button data-name="${item.name}" class="delete" style="color: #007185; text-decoration: none; margin-left: 10px;">Delete</button>
                     </p>
                 </div>
                 <div>
@@ -106,28 +110,36 @@ export function renderCart() {
             </div>`;
         cartContainer.appendChild(itemDiv);
     });
-    document.querySelectorAll(".qty-input").forEach((input) => {
-    input.addEventListener("change", (e) => {
-      const index = e.target.dataset.index;
-      const newQuantity = parseInt(e.target.value);
-      const cart = JSON.parse(localStorage.getItem("cart")) || [];
-      if (cart[index]) {
-        cart[index].quantity = newQuantity;
-        localStorage.setItem("cart", JSON.stringify(cart));
-        renderCart(); 
-      }
-    });
-  });
+        // Update quantity button
+        document.querySelectorAll('.update-qty').forEach((button) => {
+                button.addEventListener('click', (e) => {
+                        const name = e.currentTarget.dataset.name;
+                        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                        const itemIndex = cart.findIndex(it => it.name === name);
+                        if (itemIndex === -1) return;
+                        const currentQty = Number(cart[itemIndex].quantity) || 1;
+                        const newQtyStr = prompt('Enter new quantity for "' + name + '"', String(currentQty));
+                        const newQty = parseInt(newQtyStr, 10);
+                        if (!isNaN(newQty) && newQty > 0) {
+                                cart[itemIndex].quantity = newQty;
+                                localStorage.setItem('cart', JSON.stringify(cart));
+                                renderCart();
+                                renderSummary();
+                        }
+                });
+        });
 
-  document.querySelectorAll(".delete").forEach((button) => {
-    button.addEventListener("click", (e) => {
-      const index = e.target.dataset.index;
-      const cart = JSON.parse(localStorage.getItem("cart")) || [];
-      cart.splice(index, 1);
-      localStorage.setItem("cart", JSON.stringify(cart));
-      renderCart(); 
-    });
-  });
+        // Delete button
+        document.querySelectorAll('.delete').forEach((button) => {
+                button.addEventListener('click', (e) => {
+                        const name = e.currentTarget.dataset.name;
+                        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                        cart = cart.filter(it => it.name !== name);
+                        localStorage.setItem('cart', JSON.stringify(cart));
+                        renderCart();
+                        renderSummary();
+                });
+        });
 
 }
 
@@ -144,13 +156,17 @@ export function attachAddCartButtons() {
             const price = pricetext ? pricetext.replace(/[^0-9.]/g, '').trim() : '0';
             const item = new Item(img, name, price, 1);
             item.addToCart();
-            if (document.getElementById('cartContainer')) renderCart();
+            if (document.getElementById('.cartContainer')) renderCart();
+            if (document.getElementById('.order-summary-container')) renderSummary();
             console.log(`${item.name} added to cart!`);
         });
     });
 }
 
 window.addEventListener('DOMContentLoaded', () => {
+    if (document.getElementById('order-summary-container')) {
+        renderSummary();
+    }
     if (document.getElementById('cartContainer')) {
         renderCart();
     }
